@@ -1,0 +1,48 @@
+﻿@model Budgetverwaltung.Models.Transaction
+
+@{
+    ViewData["Title"] = "Buchung löschen";
+}
+
+<h1>Buchung löschen</h1>
+
+<h3>Willst du diese Buchung wirklich löschen?</h3>
+
+@* Hier zeige ich die Buchung nochmal, damit man sieht was gelöscht wird *@
+<table class="table" style="max-width: 500px;">
+    <tr>
+        <th>Datum</th>
+        <td>@Model.BookingDate.ToString("dd.MM.yyyy")</td>
+    </tr>
+    <tr>
+        <th>Typ</th>
+        <td>@Model.Type</td>
+    </tr>
+    <tr>
+        <th>Kategorie</th>
+        <td>@Model.Category?.Name</td>
+    </tr>
+    <tr>
+        <th>Beschreibung</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Betrag</th>
+        <td>@Model.Amount.ToString("N2")</td>
+    </tr>
+</table>
+
+@* Dieses Formular schickt die Bestätigung an die Methode DeleteConfirmed im Controller *@
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Ja, löschen</button>
+    <a asp-action="Index" class="btn btn-secondary">Abbrechen</a>
+</form>
+
+@*
+Quellen:
+
+Microsoft Dokumentation Tutorial Part 8 Add Delete to an ASP.NET Core MVC app
+Microsoft Dokumentation Add a view to an ASP.NET Core MVC app
+Microsoft Dokumentation Tag Helpers in ASP.NET Core (Form und asp-route-id)
+w3schools Seite zu Bootstrap 5 Buttons
+*@

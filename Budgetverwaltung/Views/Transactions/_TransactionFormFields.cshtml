@@ -1,0 +1,54 @@
+﻿@using Budgetverwaltung.Models
+@model Budgetverwaltung.ViewModels.TransactionFormViewModel
+
+@* Hier stehen alle Felder vom Formular, Create und Edit benutzen diese Datei beide *@
+
+@* Hier stehen Fehlermeldungen, die zu keinem bestimmten Feld gehören *@
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+@* Das ist das Feld für den Betrag *@
+<div class="mb-3">
+    <label asp-for="Amount" class="form-label">Betrag</label>
+    <input asp-for="Amount" class="form-control" />
+    <span asp-validation-for="Amount" class="text-danger"></span>
+</div>
+
+@* Das ist das Feld für das Datum *@
+<div class="mb-3">
+    <label asp-for="BookingDate" class="form-label">Datum</label>
+    <input asp-for="BookingDate" class="form-control" />
+    <span asp-validation-for="BookingDate" class="text-danger"></span>
+</div>
+
+@* Hier wähle ich aus, ob es eine Einnahme oder eine Ausgabe ist *@
+<div class="mb-3">
+    <label asp-for="Type" class="form-label">Typ</label>
+    <select asp-for="Type" asp-items="Html.GetEnumSelectList<TransactionType>()" class="form-select"></select>
+    <span asp-validation-for="Type" class="text-danger"></span>
+</div>
+
+@* Hier wähle ich die Kategorie aus, die Liste kommt vom Controller *@
+@* Der Wert 0 bei Bitte auswählen bedeutet, dass noch nichts gewählt wurde *@
+<div class="mb-3">
+    <label asp-for="CategoryId" class="form-label">Kategorie</label>
+    <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+        <option value="0">Bitte auswählen</option>
+    </select>
+    <span asp-validation-for="CategoryId" class="text-danger"></span>
+</div>
+
+@* Das ist das Feld für die Beschreibung, sie darf leer bleiben *@
+<div class="mb-3">
+    <label asp-for="Description" class="form-label">Beschreibung</label>
+    <input asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+@*
+Quellen:
+
+Microsoft Dokumentation Partial views in ASP.NET Core
+Microsoft Dokumentation Tag Helpers in ASP.NET Core (Input, Select, Validation)
+Microsoft Dokumentation Model validation in ASP.NET Core MVC
+w3schools Seite zu Bootstrap 5 Forms
+*@

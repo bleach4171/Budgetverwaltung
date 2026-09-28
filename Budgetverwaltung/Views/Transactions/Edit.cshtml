@@ -1,0 +1,32 @@
+﻿@model Budgetverwaltung.ViewModels.TransactionFormViewModel
+
+@{
+    ViewData["Title"] = "Buchung bearbeiten";
+}
+
+<h1>Buchung bearbeiten</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+
+            @* Die Id von der Buchung schicke ich versteckt mit, der Benutzer sieht sie nicht *@
+            <input type="hidden" asp-for="Id" />
+
+            @* Alle Felder kommen aus der gemeinsamen Datei *@
+            <partial name="_TransactionFormFields" />
+
+            <button type="submit" class="btn btn-primary">Speichern</button>
+            <a asp-action="Index" class="btn btn-secondary">Abbrechen</a>
+        </form>
+    </div>
+</div>
+
+@*
+Quellen:
+
+Microsoft Dokumentation Partial views in ASP.NET Core
+Microsoft Dokumentation Add a view to an ASP.NET Core MVC app
+Microsoft Dokumentation Tag Helpers in ASP.NET Core (Form, Input und asp-route)
+w3schools Seite zu Bootstrap 5 Forms
+*@

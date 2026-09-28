@@ -1,0 +1,49 @@
+﻿@model Budgetverwaltung.Models.Transaction
+
+@{
+    ViewData["Title"] = "Details der Buchung";
+}
+
+<h1>Details der Buchung</h1>
+
+@* Hier zeige ich alle Daten von der einen Buchung *@
+<table class="table" style="max-width: 500px;">
+    <tr>
+        <th>Datum</th>
+        <td>@Model.BookingDate.ToString("dd.MM.yyyy")</td>
+    </tr>
+    <tr>
+        <th>Typ</th>
+        <td>@Model.Type</td>
+    </tr>
+    <tr>
+        <th>Kategorie</th>
+        <td>@Model.Category?.Name</td>
+    </tr>
+    <tr>
+        <th>Beschreibung</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Betrag</th>
+        <td>@Model.Amount.ToString("N2")</td>
+    </tr>
+    <tr>
+        <th>Angelegt am</th>
+        <td>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+    </tr>
+</table>
+
+@* Mit diesen Links komme ich zum Bearbeiten oder zurück zur Liste *@
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Bearbeiten</a>
+<a asp-action="Index" class="btn btn-secondary">Zurück zur Liste</a>
+
+@*
+Quellen:
+
+Microsoft Dokumentation Add a view to an ASP.NET Core MVC app
+Microsoft Dokumentation Tag Helpers in ASP.NET Core (asp-action und asp-route-id)
+Microsoft Dokumentation Razor syntax reference for ASP.NET Core
+w3schools Seite zu Bootstrap 5 Tables
+w3schools Seite zu C# Date and Time (ToString mit Format)
+*@

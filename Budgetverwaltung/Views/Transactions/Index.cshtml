@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Budgetverwaltung.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Meine Buchungen";
+}
+
+<h1>Meine Buchungen</h1>
+
+@* Mit diesem Link komme ich später zum Formular für eine neue Buchung *@
+<p>
+    <a asp-action="Create" class="btn btn-primary">Neue Buchung</a>
+</p>
+
+@* Hier prüfe ich ob es überhaupt Buchungen gibt *@
+@if (!Model.Any())
+{
+    <p>Du hast noch keine Buchungen.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Typ</th>
+                <th>Kategorie</th>
+                <th>Beschreibung</th>
+                <th>Betrag</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @* Das ist die Schleife um alle Buchungen durchzugehen *@
+            @foreach (var buchung in Model)
+            {
+                <tr>
+                    <td>@buchung.BookingDate.ToString("dd.MM.yyyy")</td>
+                    <td>@buchung.Type</td>
+                    <td>@buchung.Category?.Name</td>
+                    <td>@buchung.Description</td>
+                    <td>@buchung.Amount.ToString("N2")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@buchung.Id">Details</a> |
+                        <a asp-action="Edit" asp-route-id="@buchung.Id">Bearbeiten</a> |
+                        <a asp-action="Delete" asp-route-id="@buchung.Id">Löschen</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*
+Quellen:
+
+Microsoft Dokumentation Add a view to an ASP.NET Core MVC app
+Microsoft Dokumentation Tag Helpers in ASP.NET Core (asp-action und asp-route-id)
+Microsoft Dokumentation Razor syntax reference for ASP.NET Core
+w3schools Seite zu Bootstrap 5 Tables
+w3schools Seite zu C# Foreach Loop
+*@
