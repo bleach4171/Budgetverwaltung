@@ -27,6 +27,10 @@ namespace Budgetverwaltung.Models
         [StringLength(200, ErrorMessage = "Die Beschreibung darf höchstens 200 Zeichen haben")]
         public string? Description { get; set; }
 
+        // Hier steht, wann die Buchung angelegt wurde
+        // Das setzt das Programm selbst, der Benutzer gibt es nicht ein
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         // Das ist der Fremdschlüssel, er zeigt auf die Id von der Category
         public int CategoryId { get; set; }
 
@@ -44,9 +48,9 @@ namespace Budgetverwaltung.Models
 
 /* Quellen:
 
-Microsoft Dokumentation Add a model to an ASP.NET Core MVC app
-Microsoft Dokumentation Relationships in Entity Framework Core (Foreign Keys)
-w3schools Seite zu C# Data Types (decimal und DateTime)
+Projektauftrag BudgetBook (Datenmodell)
+Technologiepfad C# ASP.NET Core MVC (Model Ausschnitt)
+Microsoft Dokumentation Model validation in ASP.NET Core MVC (Range und StringLength)
 w3schools Seite zu C# Properties (get und set)
-StackOverflow Fragen zum Thema decimal Datentyp in Entity Framework 
+w3schools Seite zu C# Date and Time
 */

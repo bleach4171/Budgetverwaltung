@@ -26,11 +26,12 @@ namespace Budgetverwaltung.Data
             base.OnModelCreating(builder);
 
             // Hier lege ich die vier Standardkategorien an
+            // Essen, Wohnen und Freizeit sind Ausgaben, Gehalt ist eine Einnahme
             builder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Essen" },
-                new Category { Id = 2, Name = "Wohnen" },
-                new Category { Id = 3, Name = "Freizeit" },
-                new Category { Id = 4, Name = "Gehalt" }
+                new Category { Id = 1, Name = "Essen", Type = TransactionType.EXPENSE, IsActive = true },
+                new Category { Id = 2, Name = "Wohnen", Type = TransactionType.EXPENSE, IsActive = true },
+                new Category { Id = 3, Name = "Freizeit", Type = TransactionType.EXPENSE, IsActive = true },
+                new Category { Id = 4, Name = "Gehalt", Type = TransactionType.INCOME, IsActive = true }
             );
         }
     }
@@ -38,8 +39,8 @@ namespace Budgetverwaltung.Data
 
 /* Quellen:
 
+Projektauftrag BudgetBook (Datenmodell)
 Microsoft Dokumentation Data Seeding in Entity Framework Core (HasData)
 Microsoft Dokumentation Introduction to Identity on ASP.NET Core
-Microsoft Dokumentation Add a model to an ASP.NET Core MVC app (DbContext und DbSet)
 w3schools Seite zu C# Inheritance (Vererbung)
 */
