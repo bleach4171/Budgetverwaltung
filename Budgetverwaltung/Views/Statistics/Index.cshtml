@@ -1,0 +1,129 @@
+﻿@using Budgetverwaltung.Models
+@model Budgetverwaltung.ViewModels.StatisticsViewModel
+
+@{
+    ViewData["Title"] = "Statistik";
+}
+
+<h1>Statistik</h1>
+
+@* Das ist mein Filterformular, es schickt die Werte per GET, damit man den Link auch teilen kann *@
+<form asp-action="Index" method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label asp-for="Von" class="form-label">Von</label>
+        <input asp-for="Von" class="form-control" />
+    </div>
+    <div class="col-auto">
+        <label asp-for="Bis" class="form-label">Bis</label>
+        <input asp-for="Bis" class="form-control" />
+    </div>
+    <div class="col-auto">
+        <label asp-for="Type" class="form-label">Typ</label>
+        <select asp-for="Type" asp-items="Html.GetEnumSelectList<TransactionType>()" class="form-select">
+            <option value="">Alle</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <label asp-for="CategoryId" class="form-label">Kategorie</label>
+        <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+            <option value="0">Alle</option>
+        </select>
+    </div>
+    <div class="col-auto align-self-end">
+        <button type="submit" class="btn btn-primary">Filtern</button>
+        <a asp-action="Index" class="btn btn-secondary">Zurücksetzen</a>
+    </div>
+</form>
+
+@* Das ist der Randfall keine Daten vorhanden *@
+@if (!Model.HatBuchungen)
+{
+    <p>Für den gewählten Zeitraum und Filter gibt es keine Buchungen.</p>
+}
+else
+{
+    @* Hier zeige ich die drei Summen *@
+    <div class="row mb-4">
+        <div class="col-auto">
+            <strong>Einnahmen:</strong> @Model.SummeEinnahmen.ToString("N2")
+        </div>
+        <div class="col-auto">
+            <strong>Ausgaben:</strong> @Model.SummeAusgaben.ToString("N2")
+        </div>
+        <div class="col-auto">
+            <strong>Saldo:</strong> @Model.Saldo.ToString("N2")
+        </div>
+    </div>
+
+    @* Hier zeige ich die Top Kategorie, aber nur wenn es überhaupt Ausgaben gibt *@
+    @if (Model.TopKategorieName != null)
+    {
+        <p><strong>Top Kategorie bei den Ausgaben:</strong> @Model.TopKategorieName (@Model.TopKategorieSumme.ToString("N2"))</p>
+    }
+    else
+    {
+        <p>Im gewählten Zeitraum gibt es keine Ausgaben.</p>
+    }
+
+    @* Hier zeige ich die Ausgaben gruppiert nach Kategorie *@
+    <h3>Ausgaben nach Kategorie</h3>
+    @if (!Model.AusgabenNachKategorie.Any())
+    {
+        <p>Keine Ausgaben vorhanden.</p>
+    }
+    else
+    {
+        <table class="table table-striped" style="max-width: 500px;">
+            <thead>
+                <tr>
+                    <th>Kategorie</th>
+                    <th>Summe</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var zeile in Model.AusgabenNachKategorie)
+                {
+                    <tr>
+                        <td>@zeile.Name</td>
+                        <td>@zeile.Summe.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @* Hier zeige ich alle Buchungen gruppiert nach Monat *@
+    <h3>Buchungen nach Monat</h3>
+    <table class="table table-striped" style="max-width: 600px;">
+        <thead>
+            <tr>
+                <th>Monat</th>
+                <th>Einnahmen</th>
+                <th>Ausgaben</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var zeile in Model.BuchungenNachMonat)
+            {
+                <tr>
+                    <td>@zeile.Monat</td>
+                    <td>@zeile.Einnahmen.ToString("N2")</td>
+                    <td>@zeile.Ausgaben.ToString("N2")</td>
+                    <td>@((zeile.Einnahmen - zeile.Ausgaben).ToString("N2"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*
+Quellen:
+
+Projektauftrag BudgetBook (Statistik, Filter)
+Microsoft Dokumentation Add a view to an ASP.NET Core MVC app
+Microsoft Dokumentation Tag Helpers in ASP.NET Core (Form mit method get)
+w3schools Seite zu Bootstrap 5 Forms and Tables
+w3schools Seite zu C# Foreach Loop
+Unterricht in Informatik (Aufgabenstellung Auftrag 4, Statistik und Randfälle)
+*@
