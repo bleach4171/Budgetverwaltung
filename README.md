@@ -1,15 +1,15 @@
-ï»¿# Budgetverwaltung - Akhmed Osmayev
+# Budgetverwaltung - Akhmed Osmayev
 
-Ein Block Schulprojekt fÃ¼r die Verwaltung von eigenen Einnahmen und Ausgaben.
+Ein Block Schulprojekt für die Verwaltung von eigenen Einnahmen und Ausgaben.
 Jede angemeldete Person sieht und bearbeitet nur ihre eigenen Buchungen.
 
 
 ## Was das Programm kann
 
 1. Registrierung, Login und Logout mit ASP.NET Core Identity
-2. Buchungen anlegen, anzeigen, bearbeiten und lÃ¶schen (aber nur die eigenen)
-3. Kategorien fÃ¼r Einnahmen und Ausgaben, mit PrÃ¼fung ob Kategorie und Typ zusammenpassen
-4. Statistik mit Summen fÃ¼r Einnahmen, Ausgaben und Saldo
+2. Buchungen anlegen, anzeigen, bearbeiten und löschen (aber nur die eigenen)
+3. Kategorien für Einnahmen und Ausgaben, mit Prüfung ob Kategorie und Typ zusammenpassen
+4. Statistik mit Summen für Einnahmen, Ausgaben und Saldo
 5. Top Kategorie bei den Ausgaben
 6. Gruppierung der Ausgaben nach Kategorie und der Buchungen nach Monat
 7. Filter nach Zeitraum, Typ und Kategorie
@@ -19,22 +19,22 @@ Jede angemeldete Person sieht und bearbeitet nur ihre eigenen Buchungen.
 
 1. ASP.NET Core MVC mit C#
 2. Entity Framework Core mit SQL Server LocalDB
-3. ASP.NET Core Identity fÃ¼r Login und Registrierung
-4. Bootstrap 5 fÃ¼r das Aussehen der Seiten
+3. ASP.NET Core Identity für Login und Registrierung
+4. Bootstrap 5 für das Aussehen der Seiten
 
 
 ## Wie man das Projekt startet
 
-1. Projekt mit Visual Studio Ã¶ffnen (Datei Budgetverwaltung.sln)
-2. In der Package Manager Console den Befehl Update-Database ausfÃ¼hren, damit die Datenbank mit allen Migrationen aufgebaut wird
+1. Projekt mit Visual Studio öffnen (Datei Budgetverwaltung.sln)
+2. In der Package Manager Console den Befehl Update-Database ausführen, damit die Datenbank mit allen Migrationen aufgebaut wird
 3. Mit F5 starten
-4. Im Browser registrieren und danach einfach Ã¼ber Meine Buchungen loslegen
+4. Im Browser registrieren und danach einfach über Meine Buchungen loslegen
 
 
 ## Datenmodell
 
 Die drei wichtigsten Tabellen sind User (kommt von Identity), Category und Transaction.
-Eine Transaction gehÃ¶rt immer genau zu einem User und zu einer Category.
+Eine Transaction gehört immer genau zu einem User und zu einer Category.
 Das genaue ER Diagramm liegt als Bild bei der Abgabe von Auftrag 1.
 
 
@@ -43,13 +43,13 @@ Das genaue ER Diagramm liegt als Bild bei der Abgabe von Auftrag 1.
 1. Models: Category, Transaction, TransactionType
 2. ViewModels: TransactionFormViewModel, StatisticsViewModel
 3. Controllers: TransactionsController, StatisticsController
-4. Views: je ein Ordner fÃ¼r Transactions und Statistics
+4. Views: je ein Ordner für Transactions und Statistics
 5. Data: ApplicationDbContext und die Migrationen
 
 
 ## Sicherheit
 
-Es liegen keine PasswÃ¶rter oder Zugangsdaten im Code. Die Verbindung zur Datenbank lÃ¤uft Ã¼ber Trusted_Connection, also Ã¼ber den Windows Benutzer, ohne gespeichertes Passwort.
+Es liegen keine Passwörter oder Zugangsdaten im Code. Die Verbindung zur Datenbank läuft über Trusted_Connection, also über den Windows Benutzer, ohne gespeichertes Passwort.
 
 
 ## Quellen
